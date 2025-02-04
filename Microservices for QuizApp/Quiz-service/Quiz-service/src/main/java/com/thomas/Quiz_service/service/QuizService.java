@@ -1,7 +1,8 @@
 package com.thomas.Quiz_service.service;
 
-import com.thomas.Quiz_service.dao.QuestionDao;
+
 import com.thomas.Quiz_service.dao.QuizDao;
+import com.thomas.Quiz_service.feign.QuizInterface;
 import com.thomas.Quiz_service.model.QuestionWrapper;
 import com.thomas.Quiz_service.model.Quiz;
 import com.thomas.Quiz_service.model.Response;
@@ -21,18 +22,17 @@ public class QuizService {
     @Autowired
     private Quiz quiz;
 
-//    @Autowired
-//    private QuestionDao questionDao;
+    @Autowired
+    private QuizInterface quizInterface;
 
     @Autowired
     private QuizDao quizDao;
 
     public ResponseEntity<String> createQuiz(String category, int numQ, String title) {
 
-        List<Integer> questions = questionDao.findRandomQuestionsByCategory(category,numQ);
-
+        List<Integer> questions = quizInterface.getQuestionsForQuiz(category,numQ).getBody();
         quiz.setTitle(title);
-        //quiz.setQuestions(questions);
+        quiz.setQuestionIds(questions);
         quizDao.save(quiz);
 
         return new ResponseEntity<>("Success",HttpStatus.OK);

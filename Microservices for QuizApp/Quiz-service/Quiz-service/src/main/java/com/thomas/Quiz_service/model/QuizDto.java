@@ -8,6 +8,15 @@ public class QuizDto {
     private Integer numQuestions;
     private  String title;
 
+    public QuizDto(String category, Integer numQuestions, String title) {
+        this.category = category;
+        this.numQuestions = numQuestions;
+        this.title = title;
+    }
+
+    public QuizDto() {
+    }
+
     public String getCategory() {
         return category;
     }

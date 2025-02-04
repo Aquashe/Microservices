@@ -1,10 +1,12 @@
 package com.thomas.Quiz_service.controller;
 
+
 import com.thomas.Quiz_service.model.QuestionWrapper;
 import com.thomas.Quiz_service.model.QuizDto;
 import com.thomas.Quiz_service.model.Response;
 import com.thomas.Quiz_service.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +20,8 @@ public class QuizController {
     private QuizService quizService;
 
     @PostMapping("create")
-    public ResponseEntity<String> createQuiz(@RequestParam QuizDto quizDto){
+    public ResponseEntity<String> createQuiz(@RequestBody QuizDto quizDto){
+        System.out.println("Create called");
         return quizService.createQuiz(quizDto.getCategory(),quizDto.getNumQuestions(),quizDto.getTitle());
     }
 
