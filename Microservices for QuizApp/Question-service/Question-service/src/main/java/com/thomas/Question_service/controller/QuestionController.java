@@ -4,6 +4,7 @@ import com.thomas.Question_service.model.Question;
 import com.thomas.Question_service.model.QuestionWrapper;
 import com.thomas.Question_service.model.Response;
 import com.thomas.Question_service.service.QuestionService;
+import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,9 @@ public class QuestionController {
 
     @Autowired
     private  QuestionService questionService;
+
+    @Autowired
+    Environment environment;
 
     @GetMapping("allQuestions")
     public ResponseEntity<List<Question>> getAllQuestions(){
@@ -41,6 +45,7 @@ public class QuestionController {
 
     @PostMapping("getQuestions")
     public ResponseEntity<List<QuestionWrapper>> getQuestionsById(@RequestBody List<Integer> questionsIds){
+        System.out.println(environment.getProperty("local.server.port"));
         return questionService.getQuestionsFromId(questionsIds);
     }
 
